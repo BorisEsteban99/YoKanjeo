@@ -1,0 +1,75 @@
+<div class="container-fluid p-0">
+  <div class="row">
+    <div class="col-12">
+      <div class="login-card">
+        <div>
+          <div>
+            <a class="logo" routerLink='/'>
+              <img class="img-fluid for-light" src="assets/images/logo/login.png" alt="looginpage">
+              <img class="img-fluid for-dark" src="assets/images/logo/logo_dark.png" alt="looginpage">
+            </a>
+          </div>
+          <div class="login-main">
+            <form class="theme-form" [formGroup]="loginForm">
+              <h4>Inicia sesión</h4>
+              <p>Ingresa tu correo y contraseña para ingresar</p>
+              <div class="form-group">
+                <label class="col-form-label">Dirección de correo electrónico</label>
+                <input class="form-control" type="email" required="" placeholder="app@yourmail.com"
+                  formControlName="email">
+                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.required"
+                  class="text text-danger mt-1">
+                  El correo es obligatorio
+                </div>
+                <div *ngIf="loginForm.controls.email.touched && loginForm.controls.email.errors?.email"
+                  class="text text-danger mt-1">
+                  Correo inválido
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label">Contraseña</label>
+                <input class="form-control" [type]="show ? 'text' : 'password'" formControlName="password" required=""
+                  placeholder="*********">
+                <div class="show-hide" (click)="showPassword()" *ngIf="!show"> <span class="show"></span></div>
+                <div class="show-hide" (click)="showPassword()" *ngIf="show"><span class="Hide"></span></div>
+                <div *ngIf="loginForm.controls.password.touched && loginForm.controls.password.errors?.required"
+                  class="text text-danger mt-1">
+                  La contraseña es obligatoria
+                </div>
+              </div>
+              <div class="form-group mb-0">
+                <div class="checkbox p-0">
+                  <input id="checkbox1" type="checkbox">
+                  <label class="text-muted" for="checkbox1">Recuérdame</label>
+                </div>
+                <a [routerLink]="'/authentication/forgot-password'" class="link">Recuperar Contraseña</a>
+                <button class="btn btn-primary btn-block" [class.loader--text]="authService.showLoader"
+                  [disabled]="!loginForm.valid || authService.showLoader" [routerLink]="'dashboard/default'"
+                  type="button"><span>{{ authService.showLoader ? '' : 'Login' }}</span>
+                  <!--Validacion de una linea-->
+                </button>
+              </div>
+              <h6 class="text-muted mt-4 or">o Ingresa con: </h6>
+              <div class="social mt-4">
+                <div class="btn-showcase">
+                  <a class="btn btn-light" (click)="loginFacebook()" target="_blank">
+                    <app-feather-icons [icon]="'facebook'" class="txt-fb"></app-feather-icons>Facebook
+                  </a>
+                  <a class="btn btn-light" (click)="loginTwitter()" target="_blank">
+                    <app-feather-icons [icon]="'twitter'" class="txt-twitter"></app-feather-icons>Twitter
+                  </a>
+                  <a class="btn btn-light" (click)="loginGoogle()" target="_blank">
+                    <app-feather-icons [icon]="'log-in'" class="txt-google"></app-feather-icons>Google +
+                  </a>
+                </div>
+              </div>
+              <p class="mt-4 mb-0">¿No estás registrado?
+                <a [routerLink]="'/authentication/register/simple'" class="ml-2">Crea una cuenta</a>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
